@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Build your resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A2332; --ink-soft:#4A5768; --paper:#FBFAF7; --card:#FFFFFF;
+  --line:#D9D4C8; --amber:#E09200; --amber-soft:#FFF4DC; --steel:#5A6B7D; --ok:#2F6B4F;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2EFE8; --ink-soft:#B4BCC7; --paper:#141A22; --card:#1D2530;
+    --line:#333E4C; --amber:#FFB524; --amber-soft:#3A2E14; --steel:#8E9BA9; --ok:#6FBF95;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{height:100%;margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.5}
+#bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--paper);border-bottom:1px solid var(--line)}
+#fill{height:4px;background:var(--amber);width:0;transition:width .3s ease}
+#barrow{display:flex;align-items:center;gap:10px;padding:10px 20px;max-width:640px;margin:0 auto}
+#back{border:0;background:none;color:var(--steel);font:600 16px Barlow,sans-serif;padding:8px 4px;cursor:pointer;visibility:hidden}
+#home{color:var(--steel);font:600 16px Barlow,sans-serif;text-decoration:none;padding:8px 4px}
+#home:hover{color:var(--ink)}
+#back:hover{color:var(--ink)}
+#count{margin-left:auto;color:var(--steel);font-size:15px;font-weight:500}
+main{max-width:640px;margin:0 auto;padding:28px 20px 150px}
+h1{font-size:30px;line-height:1.2;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
+.note{color:var(--ink-soft);font-size:17px;margin:0 0 26px;max-width:46ch}
+label{display:block;font-weight:600;font-size:17px;margin:20px 0 7px}
+input[type=text],input[type=tel],input[type=email],textarea,select{
+  width:100%;padding:15px 16px;font:400 18px Barlow,sans-serif;color:var(--ink);
+  background:var(--card);border:2px solid var(--line);border-radius:6px}
+textarea{min-height:150px;resize:vertical;line-height:1.55}
+input:focus,textarea:focus,select:focus{outline:3px solid var(--amber);outline-offset:1px;border-color:var(--amber)}
+::placeholder{color:var(--steel);opacity:.85}
+.big{display:block;width:100%;padding:18px 20px;margin:11px 0;font:600 19px Barlow,sans-serif;
+  text-align:left;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:6px;cursor:pointer}
+.big:hover{border-color:var(--steel)}
+.big:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.big[aria-pressed=true]{border-color:var(--amber);background:var(--amber-soft)}
+.big small{display:block;font-weight:400;font-size:16px;color:var(--ink-soft);margin-top:4px;line-height:1.4}
+.grp{margin:26px 0 8px;font-weight:700;font-size:15px;color:var(--steel);padding-bottom:6px;border-bottom:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.chip{padding:12px 15px;font:500 16px Barlow,sans-serif;color:var(--ink);background:var(--card);
+  border:2px solid var(--line);border-radius:22px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--amber-soft);border-color:var(--amber);font-weight:600}
+.chip:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#foot{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:1px solid var(--line);
+  padding:14px 20px calc(14px + env(safe-area-inset-bottom,0px))}
+#footin{max-width:640px;margin:0 auto;display:flex;align-items:center;gap:14px}
+#next{flex:1;padding:18px;font:700 19px Barlow,sans-serif;color:#fff;background:var(--ink);border:0;border-radius:6px;cursor:pointer}
+#next:hover{background:var(--steel)}
+#next:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+#skip{border:0;background:none;color:var(--steel);font:600 16px Barlow,sans-serif;padding:12px 6px;cursor:pointer;text-decoration:underline}
+.saved{display:flex;align-items:center;gap:8px;color:var(--ok);font-size:15px;font-weight:600;margin-top:22px}
+.tally{background:var(--amber-soft);border-left:5px solid var(--amber);padding:18px 20px;border-radius:0 6px 6px 0;margin:8px 0 18px}
+.tally strong{display:block;font-size:26px;line-height:1.2}
+.helprow{display:flex;align-items:center;gap:14px;background:var(--card);
+  border:2px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 22px;
+  text-decoration:none;color:var(--ink)}
+.helprow:hover{border-color:var(--amber);background:var(--amber-soft)}
+.helprow:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.helprow .disc{flex:none;width:42px;height:42px;border-radius:50%;background:var(--amber);
+  color:#fff;display:flex;align-items:center;justify-content:center}
+.helprow b{display:block;font-size:17px;font-weight:700;line-height:1.3}
+.helprow .sub{display:block;color:var(--ink-soft);font-size:15px;margin-top:2px}
+.warn{background:var(--card);border:2px solid var(--amber);border-left-width:6px;border-radius:0 6px 6px 0;
+  padding:16px 18px;margin:0 0 22px;font-size:17px;line-height:1.5}
+.warn b{display:block;margin-bottom:6px}
+.job{background:var(--card);border:2px solid var(--line);border-radius:6px;padding:15px 17px;margin:11px 0}
+.job b{font-size:18px}
+.job span{display:block;color:var(--ink-soft);font-size:16px;margin-top:3px}
+.end{border:2px dashed var(--line);border-radius:8px;padding:26px;text-align:center;color:var(--ink-soft)}
+@media (min-width:760px){
+  body{font-size:19px} main{padding:44px 20px 160px} h1{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="bar">
+  <div id="fill"></div>
+  <div id="barrow"><a id="home" href="index.html">&larr; Home</a><button id="back" type="button">← Back</button><span id="count"></span></div>
+</div>
+
+<main id="main"></main>
+
+<div id="foot"><div id="footin">
+  <button id="next" type="button">Continue</button>
+  <button id="skip" type="button" hidden>Skip</button>
+</div></div>
+
+<script>
+var TOTAL = 13;
+var D = {goal:'',target:'',target2:'',other:'',skillsOther:'',resume:'',cover:'',posting:'',postCo:'',postWhy:'',postRef:'',contact:{},jobs:[],cur:{},industries:[],skills:[],edu:{},hasJob:null};
+var step = 1;
+
+function save(){ try{ localStorage.setItem('rw2', JSON.stringify({D:D,step:step})); }catch(e){} }
+function load(){ try{ var r=localStorage.getItem('rw2'); if(r){var o=JSON.parse(r); if(o&&o.D){D=o.D; step=o.step||1;}} }catch(e){} }
+
+var INDUSTRIES = [
+ ['Warehouse & shipping', ['Forklift','Pallet jack','Order picking','Inventory counts','Shipping & receiving','Loading trucks','Handheld scanner','Packing orders','Cycle counting']],
+ ['Construction & trades', ['Hand & power tools','Framing','Concrete','Roofing','Drywall','Reading blueprints','Measuring & layout','Scaffolding','Site cleanup','Heavy equipment']],
+ ['Skilled & licensed trades', ['Welding','Electrical','Plumbing','HVAC','Auto mechanics','Diesel mechanics','Machining','Pipefitting','Apprenticeship completed','Journeyman license']],
+ ['Food service', ['Line cooking','Prep work','Dishwashing','Food safety certificate','Cash register','Taking orders','Opening & closing','Stocking','Catering']],
+ ['Retail & customer service', ['Cash register','Helping customers','Stocking shelves','Handling returns','Opening & closing','Building displays','Counting inventory','Loss prevention']],
+ ['Driving & delivery', ["Driver's license",'CDL','Delivery routes','Loading & unloading','Vehicle inspections','Route apps & GPS','Log books','Hazmat endorsement']],
+ ['Logistics & operations', ['Scheduling shipments','Freight & carriers','Warehouse management systems','Inventory planning','Purchasing','Vendor coordination','Cost tracking','Process improvement']],
+ ['Healthcare & nursing', ['Patient care','Taking vitals','Lifting & transferring','Sanitizing rooms','Charting & records','CNA','LPN or RN','Phlebotomy','Passing medications','CPR certified']],
+ ['Cleaning & maintenance', ['Floor care','Restroom cleaning','Equipment cleaning','Chemical safety','Trash removal','Restocking supplies','Basic repairs','Groundskeeping']],
+ ['Landscaping & outdoor', ['Mowing','Trimming & pruning','Irrigation','Planting','Equipment maintenance','Spraying','Hauling','Fencing']],
+ ['Manufacturing & assembly', ['Assembly line','Quality inspection','Machine operation','Packaging','Safety procedures','Reading work orders','Blueprint reading','Lean or Six Sigma']],
+ ['Office & admin', ['Answering phones','Data entry','Filing','Scheduling','Email','Spreadsheets','Greeting visitors','Travel booking','Bookkeeping']],
+ ['Teaching & education', ['Lesson planning','Classroom management','Grading & assessment','Parent communication','Curriculum development','Tutoring','Special education','Teaching certificate','Coaching']],
+ ['Supervision & management', ['Supervising a crew','Hiring & interviewing','Writing schedules','Training programs','Budgets','Performance reviews','Running meetings','Safety compliance','Payroll']],
+ ['Sales & business development', ['Cold calling','Account management','Quotes & proposals','Meeting quotas','CRM software','Customer retention','Territory management','Negotiating']],
+ ['Accounting & finance', ['Accounts payable','Accounts receivable','Payroll','Reconciliation','Budget preparation','QuickBooks','Excel','Financial reporting','Tax preparation']],
+ ['IT & technical', ['Help desk support','Hardware repair','Networking','Windows administration','Linux administration','Databases','Programming','Cybersecurity','Cloud platforms','Ticketing systems']],
+ ['Farm, ranch & agriculture', ['Livestock care','Irrigation','Tractor operation','Fencing','Harvesting','Equipment repair','Feed & nutrition','Pesticide license']]
+];
+var UNIVERSAL = ['Training new people','Supervising others','Working on a team','Working alone','Solving problems','Speaking Spanish','Bilingual (other)','Lifting heavy items','Standing all day','Night shifts','Weekend work','Always on time','Handling money','Writing reports','Public speaking','Computer basics','Handling complaints','Clean driving record'];
+
+var GOALS = [
+ ['now',    'I need a job soon',            'Steady work and a paycheck is what matters right now.'],
+ ['ended',  'My job ended',                 'I want to keep doing the work I know.'],
+ ['up',     'A step up in the work I know', 'Same line of work, but a better position or more pay.'],
+ ['change', 'Something different',          'A new field, or a career change.'],
+ ['back',   'Getting back to work',         "I've been out a while and I'm returning."],
+ ['first',  'My first job',                 "I haven't worked yet."],
+ ['other',  'Something else',               'None of these fit the way I\'d put it.']
+];
+
+var PROFESSIONAL = ['Law firm','Accounting or CPA firm','Insurance','Real estate','Property management','Mortgage company','Bank or credit union','Title company','Engineering firm','Architecture firm','Consulting firm','Medical or dental practice','Marketing or advertising','Other professional office'];
+
+var SCHOOL = ['Still in high school','High school diploma','GED','Some college','Trade or technical school','Certificate or license','Associate degree','Bachelor degree','Master degree or higher','Military training','None of these'];
+
+var M=document.getElementById('main'), NEXT=document.getElementById('next'),
+    SKIP=document.getElementById('skip'), BACK=document.getElementById('back'),
+    FILL=document.getElementById('fill'), COUNT=document.getElementById('count');
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+function toggle(a,v){ var i=a.indexOf(v); if(i>-1) a.splice(i,1); else a.push(v); }
+function chips(list,act,sel){ return '<div class="chips">'+list.map(function(s){
+  return '<button class="chip" data-act="'+act+'" data-v="'+esc(s)+'" aria-pressed="'+(sel.indexOf(s)>-1)+'">'+esc(s)+'</button>';}).join('')+'</div>'; }
+
+var LINKS = {
+  start: [
+    ['Indeed','www.indeed.com','https://www.indeed.com','The biggest board. Most local jobs end up here.'],
+    ['Google for Jobs','google.com','https://www.google.com/search?q=jobs+near+me&ibp=htl;jobs','Pulls listings from everywhere into one search.'],
+    ['ARIZONA@WORK','www.azjobconnection.gov','https://www.azjobconnection.gov','The state job bank. Free, and required for unemployment work-search contacts.'],
+    ['USAJOBS','www.usajobs.gov','https://www.usajobs.gov','Federal jobs, including Fort Huachuca.']
+  ],
+  boards: [
+    ['LinkedIn','www.linkedin.com','https://www.linkedin.com/jobs','Stronger for office and professional roles.'],
+    ['ZipRecruiter','www.ziprecruiter.com','https://www.ziprecruiter.com','Good for trades, driving and warehouse work.'],
+    ['Snagajob','www.snagajob.com','https://www.snagajob.com','Hourly and shift work.'],
+    ['Monster','www.monster.com','https://www.monster.com','General board.'],
+    ['CareerBuilder','www.careerbuilder.com','https://www.careerbuilder.com','General board.'],
+    ['Talent.com','www.talent.com','https://www.talent.com','General board.']
+  ],
+  local: [
+    ['Craigslist — Tucson','tucson.craigslist.org','https://tucson.craigslist.org/search/jjj','Real local jobs, but read the scam warning above first.'],
+    ['Chamber of Commerce','—','','Local employers who hire steadily. Add your chamber\u2019s link here.'],
+    ['Church Employment Services','—','','Add the current link for your area here.']
+  ]
+};
+
+function linkRow(x){
+  var name=x[0], host=x[1], url=x[2], note=x[3];
+  var inner = '<b>'+esc(name)+'</b>'+(note?'<small>'+esc(note)+'</small>':'');
+  if(!url) return '<div class="big" style="opacity:.6;cursor:default">'+inner+'</div>';
+  return '<a class="big" style="text-decoration:none;display:block" href="'+esc(url)+'" target="_blank" rel="noopener">'+inner+'</a>';
+}
+
+function buildCover(){
+  var L=[];
+  L.push('Please write me a cover letter for a job I am applying for. My details are below.');
+  L.push('');
+  L.push('THE JOB I AM APPLYING FOR');
+  if(D.postCo) L.push('Company: '+D.postCo);
+  L.push('The posting, exactly as it was written:');
+  L.push(D.posting || '(I did not paste it - please ask me for the job posting before writing.)');
+  L.push('');
+  if(D.postWhy){ L.push('WHY I WANT THIS JOB (my own words)'); L.push(D.postWhy); L.push(''); }
+  if(D.postRef){
+    L.push('SOMEONE I KNOW THERE');
+    L.push(D.postRef);
+    L.push('Please work this connection into the opening line - it matters more than anything else in the letter.');
+    L.push('');
+  }
+
+  if(D.resume){
+    L.push('MY RESUME');
+    L.push(D.resume);
+  } else {
+    L.push('MY BACKGROUND');
+    L.push('Name: '+(D.contact.name||'(ask me)'));
+    L.push('City: '+(D.contact.city||'(ask me)'));
+    if(D.target) L.push('I am aiming for work as: '+D.target);
+    if(D.jobs.length){
+      D.jobs.forEach(function(j,i){
+        var yr = j.y1 ? (j.y1+' to '+(j.y2==='Still there'?'present':(j.y2||'present'))) : '';
+        L.push((i+1)+'. '+[j.title,j.where?('at '+j.where):'',yr?('('+yr+')'):''].filter(Boolean).join(' '));
+        if(j.duties) L.push('   What I did: '+j.duties);
+        if(j.wins)   L.push('   What I improved: '+j.wins);
+      });
+    }
+    if(D.skills.length) L.push('Things I can do: '+D.skills.join(', '));
+    if(D.skillsOther)   L.push('Also can do: '+D.skillsOther);
+    if(D.other)         L.push('Other work I have done: '+D.other);
+  }
+
+  L.push('');
+  L.push('HOW I WOULD LIKE IT WRITTEN');
+  L.push('- Three or four short paragraphs on one page. Plain text, no letterhead, no graphics.');
+  L.push('- Point at the things in the posting I actually match, using my real experience.');
+  L.push('- Sound like a real person, not a template. Confident but not boastful.');
+  L.push('- IMPORTANT: do not invent any experience, skill or qualification I did not give you. If something is missing, ASK ME instead of making it up.');
+  L.push('');
+  L.push('THEN, AFTER THE LETTER');
+  L.push('Give me a short, honest read on how well I match this job:');
+  L.push('- Which requirements I clearly meet.');
+  L.push('- Which ones I do not meet, and whether that is likely to matter.');
+  L.push('- Whether this one is worth applying for, in your opinion.');
+  return L.join('\n');
+}
+
+// Help video row. Add to any screen with: helpRow('<topic>','<label>')
+function helpRow(topic, label){
+  return '<a class="helprow" href="help.html?t='+encodeURIComponent(topic)+'">'+
+    '<span class="disc"><svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true">'+
+    '<path fill="currentColor" d="M4.5 2.4 13 8l-8.5 5.6z"/></svg></span>'+
+    '<span><b>'+esc(label)+'</b><span class="sub">Watch a short video</span></span></a>';
+}
+
+function buildInterview(){
+  var L=[];
+  L.push('I have an interview coming up and I want to get ready for it. Please help me practise.');
+  L.push('');
+
+  if(D.posting){
+    L.push('THE JOB');
+    if(D.postCo) L.push('Company: '+D.postCo);
+    L.push('The posting, exactly as it was written:');
+    L.push(D.posting);
+  } else {
+    L.push('THE JOB');
+    L.push(D.target ? ('I am interviewing for work as: '+D.target)
+                    : '(I have not told you what job this is for - please ask me before we start.)');
+  }
+  L.push('');
+
+  if(D.resume){
+    L.push('MY RESUME');
+    L.push(D.resume);
+  } else {
+    L.push('MY BACKGROUND');
+    L.push('Name: '+(D.contact.name||'(ask me)'));
+    if(D.jobs.length){
+      D.jobs.forEach(function(j,i){
+        var yr = j.y1 ? (j.y1+' to '+(j.y2==='Still there'?'present':(j.y2||'present'))) : '';
+        L.push((i+1)+'. '+[j.title,j.where?('at '+j.where):'',yr?('('+yr+')'):''].filter(Boolean).join(' '));
+        if(j.duties) L.push('   What I did: '+j.duties);
+        if(j.wins)   L.push('   What I improved: '+j.wins);
+      });
+    } else {
+      L.push('I have not had a job before - this would be my first.');
+    }
+    if(D.skills.length) L.push('Things I can do: '+D.skills.join(', '));
+    if(D.skillsOther)   L.push('Also can do: '+D.skillsOther);
+    if(D.other)         L.push('Other work I have done: '+D.other);
+    var lv=(D.edu.levels||[]).filter(function(x){return x!=='None of these';});
+    if(lv.length)       L.push('School and training: '+lv.join(', '));
+    if(D.edu.certs)     L.push('Certificates and licenses: '+D.edu.certs);
+    if(D.edu.other)     L.push('Other training: '+D.edu.other);
+  }
+
+  if(D.goal==='ended' || D.goal==='back'){
+    L.push('');
+    L.push('SOMETHING I AM WORRIED ABOUT');
+    L.push(D.goal==='ended'
+      ? 'My last job ended and they may ask me why. Help me give a short, honest answer that does not sound defensive.'
+      : 'I have been out of work for a while and they may ask about the gap. Help me answer it plainly without apologising for it.');
+  }
+
+  L.push('');
+  L.push('WHAT I NEED FROM YOU');
+  L.push('1. A list of the questions I am most likely to be asked for THIS job, based on the posting and my background. Put the most likely ones first.');
+  L.push('2. The handful of questions almost every interview includes.');
+  L.push('3. Any question my own history might invite - a gap, short stints, changing fields, or thin experience - and how to answer it honestly.');
+  L.push('4. Four or five good questions for ME to ask THEM. Most people freeze when the interviewer asks "do you have any questions," and having some ready makes a real difference.');
+  L.push('');
+  L.push('THEN LET ME PRACTISE');
+  L.push('After the list, please coach me one question at a time:');
+  L.push('- Ask me ONE question and wait for my answer. Do not ask several at once.');
+  L.push('- When I answer, tell me plainly what was good and what to change. Be honest - I would rather hear it from you than lose the job.');
+  L.push('- If my answer is too short or too long, say so and show me a better version using MY words and MY real experience.');
+  L.push('- Keep going until I say stop.');
+  L.push('');
+  L.push('IMPORTANT: do not invent any experience or qualification I did not give you. If you need to know something, ask me.');
+  L.push('Keep your language plain and straightforward. I am not a professional writer and I do not want to sound like one in the interview.');
+  return L.join('\n');
+}
+
+function saveFile(name, text){
+  if(!text){ return; }
+  // Try the artifact runtime first, then fall back to an ordinary browser download.
+  var fallback = function(){
+    try{
+      var blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 1500);
+    }catch(e){}
+  };
+  try{
+    if(window.claude && window.claude.use){
+      window.claude.use('downloads').then(function(d){
+        if(d && d.save){ d.save({filename:name, data:text}).catch(fallback); } else { fallback(); }
+      }, fallback);
+      return;
+    }
+  }catch(e){}
+  fallback();
+}
+
+function mailTo(subject, body){
+  var href = 'mailto:' + encodeURIComponent(D.contact.email||'') +
+             '?subject=' + encodeURIComponent(subject) +
+             '&body=' + encodeURIComponent(body||'');
+
+  // A browser never reports whether a mailto: opened anything. What it does
+  // reliably report is losing focus - which is what happens when a mail app
+  // takes over. If focus never leaves after ~1.5s, nothing opened.
+  var handed = false;
+  var noted = function(){ handed = true; };
+  document.addEventListener('visibilitychange', noted);
+  window.addEventListener('blur', noted);
+  window.addEventListener('pagehide', noted);
+
+  try{ window.location.href = href; }catch(e){}
+
+  setTimeout(function(){
+    document.removeEventListener('visibilitychange', noted);
+    window.removeEventListener('blur', noted);
+    window.removeEventListener('pagehide', noted);
+    if(handed || document.hidden) return;
+    var box = document.getElementById('mailfail');
+    if(box){ box.hidden = false; box.scrollIntoView({block:'nearest'}); }
+  }, 1500);
+}
+
+var GOAL_NOTE = {
+  now:    'I need work soon. Lead with reliability, availability and willingness to work. Keep it simple and direct.',
+  ended:  'My job ended and I want to keep doing the same kind of work. Present my experience confidently and continuously. Do not draw attention to why the job ended or to any gap.',
+  up:     'I am trying to move up in the field I already know. Lead with my training and credentials, and with the responsibilities that show I am ready for more.',
+  change: 'I am changing to a different field. Translate what I have done into skills that carry over, and make the connection to new work obvious.',
+  back:   'I have been out of work for a while and I am returning. Present my past work confidently and do not apologise for time away.',
+  first:  'I have not had a job yet. Build the resume around my schooling, any training, volunteer work, and willingness to learn. Do not make the lack of work history the focus.',
+  other:  'Before writing, ask me what kind of work I am aiming for.'
+};
+
+function buildPrompt(){
+  var L = [];
+  L.push('Please help me write a resume. I have filled out my details below. I am not a professional writer, so please put this into good resume language for me.');
+  L.push('');
+  L.push('WHAT I AM LOOKING FOR');
+  L.push(GOAL_NOTE[D.goal] || 'I am looking for work.');
+  if(D.target)  L.push('The job I am going for: ' + D.target + '. Aim the whole resume at this job - the summary, the wording, and which duties get the most room.');
+  if(D.target2) L.push('I would also take: ' + D.target2 + '.');
+  if(!D.target) L.push('I have not settled on a job title yet. Ask me what kind of work I am aiming for before you write the summary.');
+  L.push('');
+  L.push('MY CONTACT INFORMATION');
+  L.push('Name: '  + (D.contact.name  || '(ask me)'));
+  L.push('Phone: ' + (D.contact.phone || '(ask me)'));
+  L.push('Email: ' + (D.contact.email || '(ask me)'));
+  L.push('City: '  + (D.contact.city  || '(ask me)'));
+
+  if(D.jobs.length){
+    L.push('');
+    L.push('JOBS I HAVE HAD');
+    D.jobs.forEach(function(j,i){
+      var head = [j.title||'(job title not given)', j.where?('at '+j.where):''].filter(Boolean).join(' ');
+      var yr = j.y1 ? (j.y1 + ' to ' + (j.y2==='Still there' ? 'present (still working there)' : (j.y2||'present'))) : '';
+      var meta = [j.prof||j.kind, yr].filter(Boolean).join(', ');
+      L.push((i+1)+'. '+head+(meta?' ('+meta+')':''));
+      L.push('   In my own words, what I did day to day: '+(j.duties||'(I did not fill this in - please ask me)'));
+      if(j.wins) L.push('   Things I improved there: '+j.wins);
+    });
+  } else {
+    L.push('');
+    L.push('JOBS I HAVE HAD');
+    L.push('None yet - this would be my first job.');
+  }
+
+  if(D.skills.length || D.skillsOther){
+    L.push('');
+    L.push('THINGS I CAN DO');
+    if(D.skills.length) L.push(D.skills.join(', '));
+    if(D.skillsOther)   L.push('In my own words: '+D.skillsOther);
+  }
+
+  if(D.other){
+    L.push('');
+    L.push('OTHER THINGS I WANT AN EMPLOYER TO KNOW');
+    L.push(D.other);
+    L.push('(Work this in wherever it fits best - it may belong in the summary, as its own section, or under a job.)');
+  }
+
+  var lv = (D.edu.levels||[]).filter(function(x){return x!=='None of these';});
+  if(lv.length || D.edu.field || D.edu.school || D.edu.other){
+    L.push('');
+    L.push('SCHOOL AND TRAINING');
+    if(lv.length)        L.push(lv.join(', '));
+    if(D.edu.field)      L.push('Field of study: '+D.edu.field);
+    if(D.edu.school)     L.push('School or program: '+D.edu.school);
+    if(D.edu.certs)      L.push('Certificates and licenses I hold: '+D.edu.certs);
+    if(D.edu.other)      L.push('Other training and skills I picked up: '+D.edu.other);
+  }
+
+  L.push('');
+  L.push('HOW I WOULD LIKE IT WRITTEN');
+  L.push('- One page, plain and simple, in a single column. No tables, no columns, no graphics - it has to survive being pasted into a job application.');
+  L.push('- Turn my plain wording into clear professional phrasing, but keep it honest and keep it sounding like a real person.');
+  L.push('- Use short bullet points under each job.');
+  L.push('- Where I gave you a number or a result, keep it in and put it near the front of that job. Numbers are the strongest thing on a resume.');
+  L.push('- Put a short summary at the top, two or three lines.');
+  L.push('- IMPORTANT: do not invent any job, date, skill, duty or achievement that I did not give you. If something important is missing or unclear, ASK ME a question instead of making it up.');
+  L.push('- After you show me the resume, tell me in plain language what would make it stronger, and offer to help me fix it.');
+
+  return L.join('\n');
+}
+
+function aimPhrase(){ return D.target ? ('help you get work as '+esc(D.target)) : 'help with the job you want'; }
+
+function render(){
+  var h='', nextTxt='Continue', showSkip=false, hideNext=false;
+  var DETOUR = {21:2, 61:6, 81:8};
+  var base = DETOUR[step] || step;
+  COUNT.textContent = (DETOUR[step] || base<=1 || base>TOTAL) ? '' : 'Step '+(base-1)+' of '+(TOTAL-1);
+  FILL.style.width = (base>TOTAL) ? '100%' : Math.min(100,((DETOUR[step]?base-0.5:base)-1)/(TOTAL-1)*100)+'%';
+  BACK.style.visibility = base>1 ? 'visible' : 'hidden';
+
+  if(step===1){
+    h='<h1>Let\'s build your resume.</h1>'+
+      '<p class="note">I\'ll ask some simple questions about the work you\'ve done. You don\'t need to '+
+      'write anything fancy — just answer the way you\'d say it out loud.</p>'+
+      '<p class="note">It takes about 15 minutes. You can stop anytime and come back; your answers '+
+      'stay on this phone and are never sent anywhere.</p>';
+    nextTxt='Get started';
+  }
+
+  else if(step===2){
+    h='<h1>What are you hoping for?</h1>'+
+      '<p class="note">This changes how your resume gets written. Pick whichever is closest.</p>'+
+      GOALS.map(function(g){
+        return '<button class="big" data-act="goal" data-v="'+g[0]+'" aria-pressed="'+(D.goal===g[0])+'">'+
+               esc(g[1])+'<small>'+esc(g[2])+'</small></button>';
+      }).join('');
+    hideNext=true;
+  }
+
+  else if(step===21){
+    h='<h1>What job are you going for?</h1>'+
+      '<p class="note">If you know the title, put it here. If you\'re not sure, describe the kind '+
+      'of work — or skip this and decide later.</p>'+
+      '<label for="tg">Job title or kind of work</label>'+
+      '<input id="tg" type="text" value="'+esc(D.target)+'" placeholder="Logistics coordinator">'+
+      '<label for="tg2">Other titles you\'d take</label>'+
+      '<input id="tg2" type="text" value="'+esc(D.target2)+'" placeholder="Inventory specialist, warehouse supervisor">';
+    showSkip=true;
+  }
+
+  else if(step===3){
+    h='<h1>How can an employer reach you?</h1>'+
+      '<label for="n">Your name</label><input id="n" type="text" value="'+esc(D.contact.name)+'" placeholder="Maria Gonzalez">'+
+      '<label for="p">Phone number</label><input id="p" type="tel" value="'+esc(D.contact.phone)+'" placeholder="(520) 555-0143">'+
+      '<label for="e">Email</label><input id="e" type="email" value="'+esc(D.contact.email)+'" placeholder="maria.g@email.com">'+
+      '<label for="c">City and state</label><input id="c" type="text" value="'+esc(D.contact.city)+'" placeholder="Benson, AZ">';
+  }
+
+  else if(step===4){
+    h='<h1>Have you had a job before?</h1>'+
+      '<p class="note">Any kind counts — full time, part time, seasonal, or helping out a family business.</p>'+
+      '<button class="big" data-act="job" data-v="1">Yes, I\'ve worked before</button>'+
+      '<button class="big" data-act="job" data-v="0">Not yet</button>';
+    hideNext=true;
+  }
+
+  else if(step===5){
+    h='<h1>Where did you work?</h1>'+
+      '<p class="note">The name of the company or business. If you worked for a person, their name is fine.</p>'+
+      '<label for="w">Company or business</label><input id="w" type="text" value="'+esc(D.cur.where)+'" placeholder="Sierra Vista Distribution">'+
+      '<label for="t">What was your job called?</label><input id="t" type="text" value="'+esc(D.cur.title)+'" placeholder="Warehouse associate">';
+  }
+
+  else if(step===6){
+    h='<h1>What kind of place was it?</h1><p class="note">Pick the closest one.</p>'+
+      chips(['Warehouse or distribution center','Construction site','Mechanic shop or garage','Restaurant or kitchen','Store or retail','On the road — driving','Factory or plant','Professional office or firm','Hospital, clinic or care home','School or college','Office','Data center or IT department','Farm or ranch','Hotel or resort','Government or city','Church or nonprofit','Military','Other'],'kind',D.cur.kind?[D.cur.kind]:[]);
+  }
+
+  else if(step===61){
+    h='<h1>What kind of firm?</h1><p class="note">Pick the closest one.</p>'+
+      chips(PROFESSIONAL,'prof',D.cur.prof?[D.cur.prof]:[]);
+  }
+
+  else if(step===7){
+    var yrs='<option value="">—</option>'; for(var y=2026;y>=1970;y--) yrs+='<option>'+y+'</option>';
+    h='<h1>Roughly when did you work there?</h1>'+
+      '<p class="note">The year is close enough. Nobody expects exact dates.</p>'+
+      '<label for="y1">Started</label><select id="y1">'+yrs+'</select>'+
+      '<label for="y2">Ended</label><select id="y2">'+yrs.replace('>—<','>Still there<')+'</select>';
+  }
+
+  else if(step===8){
+    h='<h1>What did you do on a normal day?</h1>'+
+      '<p class="note">Just list it out plainly, the way you\'d tell a friend. Don\'t worry about how it '+
+      'sounds — that gets cleaned up at the end.</p>'+
+      '<textarea id="d" placeholder="Ran a forklift, loaded trucks, checked orders against the manifest, trained the new guys">'+esc(D.cur.duties)+'</textarea>';
+    showSkip=true;
+  }
+
+  else if(step===81){
+    h='<h1>Did you make anything better there?</h1>'+
+      '<p class="note">Did you speed something up, cut down on mistakes, save money, or go a long '+
+      'stretch with no accidents? A number makes a resume much stronger — even a rough one.</p>'+
+      '<textarea id="wins" placeholder="Kept inventory accuracy above 98%. Changed the bin layout and picking errors dropped about 30%. Five years with no recordable accidents.">'+esc(D.cur.wins)+'</textarea>'+
+      '<p class="note" style="margin-top:14px">Nothing comes to mind? Skip it — plenty of good resumes have none.</p>';
+    showSkip=true;
+  }
+
+  else if(step===9){
+    h='<h1>Got it. Any other jobs?</h1>'+
+      '<p class="note">Adding more gives a fuller picture, but what you have is already enough.</p>';
+    D.jobs.forEach(function(j){
+      h+='<div class="job"><b>'+esc(j.title||j.where||'That job')+'</b><span>'+
+         esc([j.where,j.prof||j.kind,[j.y1,j.y2].filter(Boolean).join('–')].filter(Boolean).join(' · '))+'</span></div>';
+    });
+    h+='<button class="big" data-act="more" data-v="1">Add another job</button>'+
+       '<button class="big" data-act="more" data-v="0">No, that\'s all of them</button>';
+    hideNext=true;
+  }
+
+  else if(step===10){
+    h='<h1>What kinds of work have you done?</h1>'+
+      '<p class="note">Pick any that fit, including work you did a long time ago. This decides which '+
+      'skills I show you next.</p>'+
+      chips(INDUSTRIES.map(function(g){return g[0];}),'ind',D.industries)+
+      '<label for="oth" style="margin-top:28px">Any other work you\'ve done that would '+aimPhrase()+'?</label>'+
+      '<p class="note" style="margin-bottom:10px">Work that didn\'t fit above still counts — jobs for family, '+
+      'side work, volunteering, military service.</p>'+
+      '<textarea id="oth" placeholder="Helped run my uncle\'s repair shop for three summers. Volunteer with the scouts. Eight years in the National Guard.">'+esc(D.other)+'</textarea>';
+  }
+
+  else if(step===11){
+    h='<h1>Check everything you can do.</h1>'+
+      '<p class="note">Most people check more than they expect. If you\'ve done it — even without a '+
+      'certificate — check it.</p>';
+    var picked = INDUSTRIES.filter(function(g){return D.industries.indexOf(g[0])>-1;});
+    if(!picked.length) picked = INDUSTRIES.slice(0,4);
+    picked.forEach(function(g){ h+='<div class="grp">'+esc(g[0])+'</div>'+chips(g[1],'sk',D.skills); });
+    h+='<div class="grp">Counts no matter the job</div>'+chips(UNIVERSAL,'sk',D.skills)+
+      '<label for="skoth" style="margin-top:28px">Anything else you can do that would '+aimPhrase()+'?</label>'+
+      '<p class="note" style="margin-bottom:10px">Things the lists missed. Tools you know, machines you\'ve run, '+
+      'software you\'ve used, anything you\'re good at.</p>'+
+      '<textarea id="skoth" placeholder="Read wiring diagrams. Run a skid steer. Know my way around a spreadsheet.">'+esc(D.skillsOther)+'</textarea>';
+  }
+
+  else if(step===12){
+    h='<h1>School and training</h1>'+
+      '<p class="note">Check anything you finished or attended.</p>'+
+      chips(SCHOOL,'ed',D.edu.levels||[])+
+      '<label for="fld">What was it in?</label>'+
+      '<input id="fld" type="text" value="'+esc(D.edu.field)+'" placeholder="Logistics management">'+
+      '<label for="sch">School or program name</label>'+
+      '<input id="sch" type="text" value="'+esc(D.edu.school)+'" placeholder="Cochise College">'+
+      (((D.edu.levels||[]).indexOf('Certificate or license')>-1)
+        ? '<label for="cert">Which certificates or licenses?</label>'+
+          '<input id="cert" type="text" value="'+esc(D.edu.certs)+'" placeholder="Forklift certification, OSHA 10-hour, CPR and First Aid">'
+        : '')+
+      '<label for="eduoth" style="margin-top:28px">Any other training or skills you\'ve picked up that would '+aimPhrase()+'?</label>'+
+      '<p class="note" style="margin-bottom:10px">Training does not have to come from a school. Courses at work, '+
+      'safety training, an apprenticeship, something you taught yourself.</p>'+
+      '<textarea id="eduoth" placeholder="Company forklift training. Learned welding from my dad. Took an online bookkeeping course.">'+esc(D.edu.other)+'</textarea>';
+    showSkip=true;
+    nextTxt='Done — see my list';
+  }
+
+  else if(step===13){
+    var n=D.skills.length;
+    h='<h1>Look at what you put together.</h1>';
+    if(D.jobs.length) h+='<div class="tally"><strong>'+D.jobs.length+' job'+(D.jobs.length===1?'':'s')+'</strong>with what you actually did in each one.</div>';
+    if(n) h+='<div class="tally"><strong>'+n+' skill'+(n===1?'':'s')+'</strong>listed by name — every one belongs on a resume.</div>';
+    if(D.edu.levels&&D.edu.levels.length) h+='<div class="tally"><strong>'+D.edu.levels.length+' school or training entr'+(D.edu.levels.length===1?'y':'ies')+'</strong>'+(D.edu.field?esc(D.edu.field):'on the record')+'.</div>';
+
+    h+='<div class="grp">Your information</div>';
+    h+='<div class="job"><b>'+esc(D.contact.name||'(no name yet)')+'</b><span>'+
+       esc([D.contact.phone,D.contact.email,D.contact.city].filter(Boolean).join(' · ')||'No contact details')+'</span></div>';
+    if(D.jobs.length){
+      h+='<div class="grp">Jobs</div>';
+      D.jobs.forEach(function(j){
+        h+='<div class="job"><b>'+esc(j.title||j.where||'That job')+'</b><span>'+
+           esc([j.where,j.prof||j.kind,[j.y1,j.y2].filter(Boolean).join('–')].filter(Boolean).join(' · '))+'</span>'+
+           (j.duties?'<span style="margin-top:7px">'+esc(j.duties)+'</span>':'')+'</div>';
+      });
+    }
+    if(n){ h+='<div class="grp">Skills</div><p class="note" style="margin-bottom:0">'+esc(D.skills.join(', '))+'</p>'; }
+    if(D.skillsOther){ h+='<div class="grp">Also can do</div><p class="note" style="margin-bottom:0">'+esc(D.skillsOther)+'</p>'; }
+    if(D.edu.other){ h+='<div class="grp">Other training</div><p class="note" style="margin-bottom:0">'+esc(D.edu.other)+'</p>'; }
+    if(D.other){ h+='<div class="grp">Other work</div><p class="note" style="margin-bottom:0">'+esc(D.other)+'</p>'; }
+    h+='<p class="note" style="margin-top:26px">Anything wrong? Use Back to fix it. Otherwise let\'s turn this into a resume.</p>';
+    nextTxt='Make my resume';
+  }
+
+  else if(step===14){
+    h='<h1>Almost there.</h1>'+
+      '<p class="note">Below is everything you told me, written out as instructions for a free AI '+
+      'helper. Copy it, open one of the helpers, and paste it in. It will write your resume and '+
+      'ask you anything it still needs.</p>'+
+      helpRow('handoff','Not sure what to do here?')+
+      '<button class="big" id="copy" data-act="copy" data-v="1" style="text-align:center;background:var(--amber-soft);border-color:var(--amber)">Copy my information</button>'+
+      '<div class="grp">Then open one of these</div>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude <small>Paste into the message box.</small></a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT <small>Paste into the message box.</small></a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://gemini.google.com/app" target="_blank" rel="noopener">Open Gemini <small>Paste into the message box.</small></a>'+
+      '<div class="grp">What gets sent</div>'+
+      '<textarea id="prompt" readonly style="min-height:240px;font-size:15px">'+esc(buildPrompt())+'</textarea>'+
+      '<div class="saved">✓ Your answers are saved on this phone</div>';
+    nextTxt='I have my resume';
+  }
+
+  else if(step===15){
+    h='<h1>Save it before you close that tab.</h1>'+
+      '<p class="note">Your resume only exists inside that chat right now. Copy the whole thing the '+
+      'AI wrote and paste it here — then it\'s yours to keep, and I can use it for a cover letter.</p>'+
+      '<textarea id="res" placeholder="Paste your finished resume here" style="min-height:260px">'+esc(D.resume)+'</textarea>'+
+      (D.resume ? '<div class="saved">\u2713 Saved on this phone</div>' : '')+
+      '<div class="grp">Keep a copy</div>'+
+      '<button class="big" data-act="dl" data-v="resume" style="text-align:center">Download it as a file</button>'+
+      '<button class="big" data-act="mail" data-v="resume" style="text-align:center">Open in my email app</button>'+
+      '<div class="warn" id="mailfail" hidden><b>Your email app didn\'t open.</b>'+
+      'This device may not have one set up. Use <b>Download it as a file</b> above instead &mdash; '+
+      'that works everywhere.</div>'+
+      '<p class="note" style="margin-top:10px">Downloading is the surest way. Opening your email app '+
+      'starts a message to yourself, but a long resume can get cut off.</p>';
+    nextTxt='Saved — what\'s next';
+  }
+
+  else if(step===16){
+    h='<h1>Do you have a job in mind?</h1>'+
+      '<p class="note">If you\'ve found a posting you want to apply for, I\'ll write you a cover '+
+      'letter made for that exact job.</p>'+
+      '<button class="big" data-act="fork" data-v="yes">Yes — I have a posting<small>I can paste it in.</small></button>'+
+      '<button class="big" data-act="fork" data-v="no">Not yet — help me look<small>Show me places to search.</small></button>'+
+      '<button class="big" data-act="fork" data-v="prep">I have an interview coming up<small>Practise the questions they will ask.</small></button>'+
+      '<button class="big" data-act="fork" data-v="done">I\'m done for now<small>Come back anytime; everything is saved.</small></button>';
+    hideNext=true;
+  }
+
+  else if(step===17){
+    h='<h1>Places to look for work</h1>'+
+      '<div class="warn"><b>Never pay money to get a job.</b> A real employer will not ask you for '+
+      'a fee, for your bank details before you are hired, or to buy your own equipment up front. '+
+      'If a listing asks you to cash a check and send part of it back, it is a scam. Walk away.</div>'+
+      '<div class="grp">Start with these</div>'+
+      LINKS.start.map(linkRow).join('')+
+      '<div class="grp">Other job boards</div>'+
+      LINKS.boards.map(linkRow).join('')+
+      '<div class="grp">Local and community</div>'+
+      LINKS.local.map(linkRow).join('')+
+      '<p class="note" style="margin-top:24px">Found something? Come back and paste it in — your '+
+      'resume is still saved here.</p>';
+    nextTxt='I found a posting';
+  }
+
+  else if(step===18){
+    h='<h1>Paste the job posting.</h1>'+
+      '<p class="note">Copy the whole listing — duties, requirements, all of it. The more it has, '+
+      'the better the letter matches.</p>'+
+      '<textarea id="post" placeholder="Paste the job posting here" style="min-height:220px">'+esc(D.posting)+'</textarea>'+
+      '<label for="co">Company name</label>'+
+      '<input id="co" type="text" value="'+esc(D.postCo)+'" placeholder="Cochise Logistics">'+
+      '<label for="why">Why do you want this one?</label>'+
+      '<p class="note" style="margin-bottom:10px">A sentence in your own words is plenty.</p>'+
+      '<textarea id="why" placeholder="It is close to home and I already know this kind of warehouse work." style="min-height:110px">'+esc(D.postWhy)+'</textarea>'+
+      '<label for="ref">Do you know anyone who works there?</label>'+
+      '<p class="note" style="margin-bottom:10px">A name in the first line of a cover letter does '+
+      'more than anything else on the page. Even a friend of a friend counts.</p>'+
+      '<input id="ref" type="text" value="'+esc(D.postRef)+'" placeholder="Dave Munoz, my neighbor, works in their shipping office">';
+    showSkip=true;
+    nextTxt='Make my cover letter';
+  }
+
+  else if(step===20){
+    h='<h1>You\'re set.</h1>'+
+      '<p class="note">Everything you entered is saved on this phone. Come back whenever you find '+
+      'a job worth applying for and your resume will still be here.</p>'+
+      (D.resume?'<div class="saved">✓ Your resume is saved</div>':
+        '<p class="note"><b>One thing:</b> you haven\'t pasted your resume back in yet. If you close '+
+        'that AI chat, it\'s gone.</p>')+
+      '<button class="big" data-act="goto" data-v="16" style="margin-top:20px">Apply for a job</button>'+
+      '<button class="big" data-act="goto" data-v="23" style="margin-top:8px">Get ready for an interview</button>'+
+      '<button class="big" data-act="goto" data-v="15" style="margin-top:8px">Save or download my resume</button>'+
+      '<button class="big" data-act="reset" data-v="1" style="margin-top:8px">Start over</button>';
+    hideNext=true;
+  }
+
+  else if(step===22){
+    h='<h1>Save your cover letter too.</h1>'+
+      '<p class="note">Same as before — copy what the AI wrote and paste it here so it is not lost '+
+      'when you close that tab.</p>'+
+      '<textarea id="cov" placeholder="Paste your finished cover letter here" style="min-height:240px">'+esc(D.cover)+'</textarea>'+
+      (D.cover ? '<div class="saved">✓ Saved on this phone</div>' : '')+
+      '<div class="grp">Keep a copy</div>'+
+      '<button class="big" data-act="dl" data-v="cover" style="text-align:center">Download it as a file</button>'+
+      '<button class="big" data-act="mail" data-v="cover" style="text-align:center">Open in my email app</button>'+
+      '<div class="warn" id="mailfail" hidden><b>Your email app didn\'t open.</b>'+
+      'This device may not have one set up. Use <b>Download it as a file</b> above instead &mdash; '+
+      'that works everywhere.</div>';
+    nextTxt='Saved — get ready for the interview';
+  }
+
+  else if(step===23){
+    h='<h1>Get ready for the interview.</h1>'+
+      '<p class="note">This gives you the questions you are most likely to be asked, the ones you '+
+      'should ask them, and then walks you through practising your answers one at a time.</p>'+
+      helpRow('interview','Show me how this works')+
+      (D.posting ? '' :
+        '<div class="warn"><b>No job posting saved.</b>You can still practise, but the questions '+
+        'will be general. Paste a posting first and they will be about that exact job.</div>')+
+      '<button class="big" id="copy" data-act="copy" data-v="1" style="text-align:center;background:var(--amber-soft);border-color:var(--amber)">Copy my information</button>'+
+      '<div class="grp">Then open one of these</div>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude</a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT</a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://gemini.google.com/app" target="_blank" rel="noopener">Open Gemini</a>'+
+      '<div class="grp">What gets sent</div>'+
+      '<textarea id="prompt" readonly style="min-height:240px;font-size:15px">'+esc(buildInterview())+'</textarea>'+
+      '<div class="grp">Before you go</div>'+
+      '<div class="tally"><strong>Say your answers out loud</strong>Reading them in your head is not '+
+      'the same. Practising out loud is the single best thing you can do.</div>'+
+      '<button class="big" data-act="goto" data-v="16" style="margin-top:8px">Apply for another job</button>'+
+      '<button class="big" data-act="goto" data-v="20" style="margin-top:8px">I\'m done for now</button>';
+    hideNext=true;
+  }
+
+  else {
+    h='<h1>Here\'s your cover letter prompt.</h1>'+
+      '<p class="note">Same as before — copy it, open a helper, paste it in. It will write the '+
+      'letter and tell you how well you match the job.</p>'+
+      '<button class="big" id="copy" data-act="copy" data-v="1" style="text-align:center;background:var(--amber-soft);border-color:var(--amber)">Copy my information</button>'+
+      '<div class="grp">Then open one of these</div>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://claude.ai/new" target="_blank" rel="noopener">Open Claude</a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT</a>'+
+      '<a class="big" style="text-decoration:none;display:block" href="https://gemini.google.com/app" target="_blank" rel="noopener">Open Gemini</a>'+
+      '<div class="grp">What gets sent</div>'+
+      '<textarea id="prompt" readonly style="min-height:240px;font-size:15px">'+esc(buildCover())+'</textarea>'+
+      '<p class="note" style="margin-top:18px">When it\'s written, come back and save it the same way '+
+      'you saved your resume.</p>'+
+      '<button class="big" data-act="goto" data-v="22" style="text-align:center">Save my cover letter</button>'+
+      '<button class="big" data-act="goto" data-v="23" style="margin-top:8px">Get ready for the interview</button>'+
+      '<button class="big" data-act="goto" data-v="16" style="margin-top:8px">Apply for a different job</button>'+
+      '<button class="big" data-act="reset" data-v="1" style="margin-top:8px">Start over</button>';
+    hideNext=true;
+  }
+
+  M.innerHTML=h;
+  NEXT.hidden=hideNext;
+  if(!hideNext) NEXT.textContent=nextTxt;
+  SKIP.hidden=!showSkip;
+  // an empty fixed bar looks like a rendering fault, so hide it outright
+  document.getElementById('foot').hidden = (hideNext && !showSkip);
+  if(step===7){
+    var a=document.getElementById('y1'), b=document.getElementById('y2');
+    if(D.cur.y1) a.value=D.cur.y1;
+    if(D.cur.y2) b.value=D.cur.y2;
+  }
+  window.scrollTo(0,0);
+}
+
+M.addEventListener('click',function(ev){
+  var b=ev.target.closest('[data-act]'); if(!b) return;
+  var a=b.dataset.act, v=b.dataset.v;
+  if(a==='goal'){ D.goal=v; step=21; }
+  else if(a==='job'){ D.hasJob=(v==='1'); step=D.hasJob?5:10; }
+  else if(a==='kind'){ D.cur.kind=(D.cur.kind===v?'':v); if(D.cur.kind!=='Professional office or firm') D.cur.prof=''; }
+  else if(a==='prof'){ D.cur.prof=(D.cur.prof===v?'':v); }
+  else if(a==='more'){ if(v==='1'){ D.cur={}; step=5; } else { step=10; } }
+  else if(a==='ind'){
+    var oe=document.getElementById('oth'); if(oe) D.other=oe.value.trim();
+    toggle(D.industries,v);
+  }
+  else if(a==='sk'){
+    var se=document.getElementById('skoth'); if(se) D.skillsOther=se.value.trim();
+    toggle(D.skills,v);
+  }
+  else if(a==='ed'){
+    D.edu.field=val('fld')||D.edu.field; D.edu.school=val('sch')||D.edu.school;
+    var ce=document.getElementById('cert');   if(ce) D.edu.certs=ce.value.trim();
+    var eo=document.getElementById('eduoth'); if(eo) D.edu.other=eo.value.trim();
+    D.edu.levels=D.edu.levels||[]; toggle(D.edu.levels,v);
+  }
+  else if(a==='copy'){
+    var t=document.getElementById('prompt'), btn=document.getElementById('copy');
+    var done=function(){ btn.textContent='Copied — now open a helper below'; btn.style.background='var(--amber)'; };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t.value).then(done,function(){ t.select(); document.execCommand('copy'); done(); });
+      } else { t.select(); t.setSelectionRange(0,999999); document.execCommand('copy'); done(); }
+    }catch(e){ btn.textContent='Press and hold the text below to copy it'; }
+    return;
+  }
+  else if(a==='fork'){
+    var r=document.getElementById('res'); if(r) D.resume=r.value.trim();
+    if(v==='yes') step=18; else if(v==='no') step=17; else if(v==='prep') step=23; else step=20;
+  }
+  else if(a==='goto'){ step=parseInt(v,10); }
+  else if(a==='dl' || a==='mail'){
+    var isCover = (v==='cover');
+    var fld = document.getElementById(isCover?'cov':'res');
+    if(fld){ if(isCover) D.cover=fld.value.trim(); else D.resume=fld.value.trim(); }
+    var text = isCover ? D.cover : D.resume;
+    var nm = (D.contact.name||'my').split(' ')[0].toLowerCase();
+    if(a==='dl') saveFile(nm+(isCover?'-cover-letter.txt':'-resume.txt'), text);
+    else         mailTo(isCover?'My cover letter':'My resume', text);
+    save(); return;
+  }
+  else if(a==='reset'){ D={goal:'',target:'',target2:'',other:'',skillsOther:'',resume:'',cover:'',posting:'',postCo:'',postWhy:'',postRef:'',contact:{},jobs:[],cur:{},industries:[],skills:[],edu:{},hasJob:null}; step=1; }
+  save(); render();
+});
+
+function collect(){
+  if(step===3) D.contact={name:val('n'),phone:val('p'),email:val('e'),city:val('c')};
+  if(step===5){ D.cur.where=val('w'); D.cur.title=val('t'); }
+  if(step===7){ D.cur.y1=val('y1'); D.cur.y2=val('y2'); }
+  if(step===8) D.cur.duties=val('d');
+  if(step===81){ D.cur.wins=val('wins'); D.jobs.push(D.cur); D.cur={}; }
+  if(step===21){ D.target=val('tg'); D.target2=val('tg2'); }
+  if(step===10){ var o=document.getElementById('oth'); if(o) D.other=o.value.trim(); }
+  if(step===11){ var so=document.getElementById('skoth'); if(so) D.skillsOther=so.value.trim(); }
+  if(step===15) D.resume=val('res');
+  if(step===22) D.cover=val('cov');
+  if(step===18){ D.posting=val('post'); D.postCo=val('co'); D.postWhy=val('why'); D.postRef=val('ref'); }
+  if(step===12){ D.edu.field=val('fld'); D.edu.school=val('sch');
+    var c=document.getElementById('cert');   if(c)  D.edu.certs=c.value.trim();
+    var eo2=document.getElementById('eduoth'); if(eo2) D.edu.other=eo2.value.trim(); }
+}
+
+NEXT.addEventListener('click',function(){
+  collect();
+  if(step===21) step=3;
+  else if(step===6 && D.cur.kind==='Professional office or firm') step=61;
+  else if(step===61) step=7;
+  else if(step===8) step=81;
+  else if(step===81) step=9;
+  else if(step===14) step=15;
+  else if(step===15) step=16;
+  else if(step===17) step=18;
+  else if(step===18) step=19;
+  else if(step===22) step=23;
+  else step=step+1;
+  save(); render();
+});
+SKIP.addEventListener('click',function(){
+  if(step===8){ D.cur.duties=val('d'); step=81; }
+  else if(step===81){ D.jobs.push(D.cur); D.cur={}; step=9; }
+  else if(step===21) step=3;
+  else step=step+1;
+  save(); render();
+});
+BACK.addEventListener('click',function(){
+  if(step===23) step=16;
+  else if(step===22) step=19;
+  else if(step===19) step=18;
+  else if(step===18) step=16;
+  else if(step===17) step=16;
+  else if(step===16) step=15;
+  else if(step===15) step=14;
+  else if(step===21) step=2;
+  else if(step===3) step=21;
+  else if(step===81) step=8;
+  else if(step===9 && D.jobs.length){ D.cur=D.jobs.pop(); step=81; }
+  else if(step===61) step=6;
+  else if(step===7 && D.cur.kind==='Professional office or firm') step=61;
+  else if(step===10 && D.hasJob===false) step=4;
+  else if(step===5 && D.jobs.length) step=9;
+  else step=Math.max(1,step-1);
+  save(); render();
+});
+
+load();
+// index.html can link to ?go=links or ?go=posting
+try{
+  var q=(location.search.match(/go=([a-z]+)/)||[])[1];
+  if(q==='links')   step=17;
+  if(q==='posting') step=18;
+  if(q==='cover')   step=16;
+  if(q==='interview') step=23;
+}catch(e){}
+render();
+</script>
+<script>window.JH_PAGE='resume';</script>
+<script src="nav.js"></script>
+</body>
+</html>

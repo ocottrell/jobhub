@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Role of the Minister</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A2332; --ink-soft:#4A5768; --paper:#FBFAF7; --card:#FFFFFF;
+  --line:#D9D4C8; --amber:#E09200; --amber-soft:#FFF4DC; --steel:#5A6B7D;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2EFE8; --ink-soft:#B4BCC7; --paper:#141A22; --card:#1D2530;
+    --line:#333E4C; --amber:#FFB524; --amber-soft:#3A2E14; --steel:#8E9BA9;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 12px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.55}
+header{border-bottom:1px solid var(--line);background:var(--card)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+header .wrap{padding-top:16px;padding-bottom:16px;display:flex;align-items:center;gap:14px}
+.home{font:600 16px Barlow,sans-serif;color:var(--steel);text-decoration:none}
+.home:hover{color:var(--ink)}
+.tag{margin-left:auto;font-size:14px;font-weight:600;color:var(--amber);
+  background:var(--amber-soft);padding:5px 11px;border-radius:20px}
+main{padding:30px 0 90px}
+h1{font-size:33px;line-height:1.15;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+.sub{color:var(--ink-soft);font-size:18px;margin:0 0 26px}
+video{width:100%;border-radius:8px;background:#000;display:block;border:1px solid var(--line)}
+.vidnote{color:var(--steel);font-size:15px;margin:9px 0 26px;font-weight:500}
+.vlabel{font-size:14px;font-weight:700;color:var(--amber);letter-spacing:.06em;
+  text-transform:uppercase;margin:0 0 9px}
+.creed{background:var(--card);border:2px solid var(--amber);border-left-width:6px;
+  border-radius:0 8px 8px 0;padding:20px 22px;margin:0 0 34px}
+.creed p{margin:0 0 12px;font-weight:600;font-size:18px}
+.creed p:last-child{margin:0}
+.creed a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--amber);text-underline-offset:3px}
+h2{font-size:15px;font-weight:700;color:var(--steel);letter-spacing:.06em;text-transform:uppercase;
+  margin:40px 0 4px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+details{border-bottom:1px solid var(--line);background:transparent}
+summary{cursor:pointer;list-style:none;padding:17px 2px;font-weight:600;font-size:19px;
+  display:flex;align-items:flex-start;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;color:var(--amber);font-weight:700;font-size:24px;line-height:1}
+details[open] summary::after{content:"\2212"}
+summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+.num{color:var(--amber);font-weight:700;min-width:22px}
+details .body{padding:0 2px 20px 34px}
+details ul{margin:0;padding-left:20px}
+details li{margin-bottom:11px;color:var(--ink)}
+details li b{color:var(--ink)}
+.todo{display:inline-block;background:var(--amber-soft);color:var(--amber);font-size:13px;
+  font-weight:700;padding:2px 8px;border-radius:4px;margin-left:5px;white-space:nowrap}
+a{color:var(--ink)}
+.links{list-style:none;padding:0;margin:14px 0 0}
+.links li{margin-bottom:11px}
+.links a{display:block;background:var(--card);border:2px solid var(--line);border-radius:6px;
+  padding:15px 17px;text-decoration:none;font-weight:600}
+.links a:hover{border-color:var(--steel)}
+.links small{display:block;font-weight:400;font-size:15px;color:var(--ink-soft);margin-top:3px}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:26px 0 40px;color:var(--steel);font-size:16px}
+@media (min-width:760px){ body{font-size:19px} h1{font-size:42px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="home" href="index.html">&larr; Home</a>
+  <span class="tag">For ministers &amp; leaders</span>
+</div></header>
+
+<main><div class="wrap">
+
+  <h1>Role of the Minister</h1>
+  <p class="sub">How to walk alongside someone who is looking for work.</p>
+
+  <p class="vlabel">Start here</p>
+  <video controls preload="metadata" playsinline poster="video/poster-leadership.jpg" src="video/Leadership.mp4"></video>
+  <p class="vidnote">Leadership &mdash; about 2 minutes.</p>
+
+  <p class="vlabel">Then this one</p>
+  <video controls preload="metadata" playsinline poster="video/poster-ministers.jpg" src="video/Help-Ministers.mp4"></video>
+  <p class="vidnote">Role of the minister &mdash; about 2&frac12; minutes.</p>
+
+  <div class="creed">
+    <p>In all your efforts, begin with a prayer.</p>
+    <p>Become familiar with the website, and help those you support work through it.</p>
+    <p>Review the Church's <a href="https://www.churchofjesuschrist.org/life/employment-services?lang=eng" target="_blank" rel="noopener">employment services site</a>.</p>
+  </div>
+
+  <h2>The four things you do</h2>
+
+  <details open>
+    <summary><span class="num">1</span> Understand what they need</summary>
+    <div class="body"><ul>
+      <li>Learn their skills, experience and where they want to go.<span class="todo">assessment sheet to come</span></li>
+      <li>Find what is standing in the way — missing skills, gaps in work history, or confidence.</li>
+      <li>Ask about immediate needs: money, transportation, childcare.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">2</span> Keep their spirits up</summary>
+    <div class="body"><ul>
+      <li>Check in regularly. Encouragement and accountability are the same act.</li>
+      <li>Help them set goals that are realistic, with dates attached.</li>
+      <li>Give them somewhere safe to say the discouraging part out loud.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">3</span> Hold them to it</summary>
+    <div class="body"><ul>
+      <li>Ask how much support they actually want. Then give that much.</li>
+      <li>If it fits, set a standing time to meet.<span class="todo">agenda to come</span></li>
+      <li>Set goals together, write them down, and follow up on them.</li>
+      <li>Encourage them to fill out the Roles document.<span class="todo">link to come</span></li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">4</span> Stay with them after</summary>
+    <div class="body"><ul>
+      <li>Keep in touch once they are hired. The first months decide whether it lasts.</li>
+      <li>Offer advice as they look toward what comes next.</li>
+      <li>Help them think past this job to the one after it.</li>
+    </ul></div>
+  </details>
+
+  <h2>Things to consider</h2>
+
+  <details>
+    <summary><span class="num">&bull;</span> Offer encouragement and support</summary>
+    <div class="body"><ul>
+      <li><b>Listen actively.</b> Let them say what is hard without hearing judgement back.</li>
+      <li><b>Pray with them.</b> Remind them, out loud, of their worth.</li>
+      <li><b>Build confidence.</b> Name the specific gifts you see. General praise does not land; specific does.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">&bull;</span> Connect them with resources</summary>
+    <div class="body"><ul>
+      <li><b>Job boards.</b> Share local boards, career fairs and hiring events.</li>
+      <li><b>Community networks.</b> Use what the congregation knows. Most jobs still come through people.</li>
+      <li><b>Workshops.</b> Point them to resume help, interview practice and training courses.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">&bull;</span> Use what the congregation has</summary>
+    <div class="body"><ul>
+      <li><b>Start a job support group.</b> People searching together carry it better than people searching alone.</li>
+      <li><b>Ask those with expertise.</b> Anyone who has hired people can teach someone to be hired.</li>
+      <li><b>Keep a job board.</b> Physical or online — somewhere leads can be posted.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">&bull;</span> Help with the practical parts</summary>
+    <div class="body"><ul>
+      <li><b>Resumes and applications.</b> Offer to read them. A second pair of eyes finds what they cannot see.</li>
+      <li><b>Mock interviews.</b> Practising out loud is the single best preparation there is.</li>
+      <li><b>Rides and childcare.</b> Interviews are lost over transportation more often than over qualifications.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">&bull;</span> Tend to the spirit</summary>
+    <div class="body"><ul>
+      <li><b>Encourage patience.</b> Philippians 4:13 and Proverbs 3:5&ndash;6 both speak to this.</li>
+      <li><b>Push back on shame.</b> Being out of work is a circumstance, not a verdict on a person.</li>
+      <li><b>Offer counsel.</b> Where stress or discouragement runs deep, help them find real support.</li>
+    </ul></div>
+  </details>
+
+  <details>
+    <summary><span class="num">&bull;</span> Work with local organisations</summary>
+    <div class="body"><ul>
+      <li><b>Nonprofits.</b> Local workforce development groups do this full time.</li>
+      <li><b>Assistance programs.</b> Government programs, food banks and financial aid ease the pressure while they search.</li>
+    </ul></div>
+  </details>
+
+  <h2>Where to send people</h2>
+  <ul class="links">
+    <li><a href="https://www.churchofjesuschrist.org/life/employment-services?lang=eng" target="_blank" rel="noopener">
+      Church Employment Services
+      <small>English and Spanish &middot; 888-818-4484 &middot; EmploymentServices@ChurchofJesusChrist.org</small></a></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/books-and-lessons/self-reliance-resources?lang=eng" target="_blank" rel="noopener">
+      Self-reliance courses<small>Group courses on work, education and finances.</small></a></li>
+    <li><a href="https://www.churchofjesuschrist.org/self-reliance/course-materials/emotional-resilience-self-reliance-course-video-resources?lang=eng" target="_blank" rel="noopener">
+      Finding Strength in the Lord<small>Emotional resilience course and videos.</small></a></li>
+  </ul>
+
+  <footer><div>Job Support Hub &middot; For ministers and leaders</div></footer>
+
+</div></main>
+<script>window.JH_PAGE='leaders';</script>
+<script src="nav.js"></script>
+</body>
+</html>

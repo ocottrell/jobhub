@@ -1,0 +1,44 @@
+JOB SUPPORT HUB — running it on your own machine
+=================================================
+
+1.  Unpack this somewhere, e.g.  ~/jobhub
+
+2.  Put the intro video where the site expects it.
+    EITHER copy the file in:
+        cp "/home/Joe/Google Drive/unemployment/video/intro/unenvy-intr-video.mp4" \
+           ~/jobhub/video/
+    OR point at your Drive copy without duplicating it:
+        ln -s "/home/Joe/Google Drive/unemployment/video/intro/unenvy-intr-video.mp4" \
+              ~/jobhub/video/unenvy-intr-video.mp4
+
+3.  Serve the folder:
+        cd ~/jobhub
+        python3 -m http.server 8000
+
+4.  Open  http://localhost:8000  in your browser.
+
+Why serve it instead of double-clicking index.html?
+---------------------------------------------------
+Opening the files directly (file://) mostly works, but two things break:
+  - "Copy my information" does nothing. The clipboard needs a secure
+    page. http://localhost counts as secure; file:// does not.
+  - The browser may refuse to load videos from outside the page's folder.
+
+python3 -m http.server gives you both, with no install and no config.
+
+Testing from your phone on the same wifi
+-----------------------------------------
+    python3 -m http.server 8000 --bind 0.0.0.0
+then browse to  http://<your-pc-ip>:8000  from the phone.
+Note: the clipboard still will not work over a plain http:// address that
+is not localhost. Everything else will.
+
+Files
+-----
+  index.html    home page
+  intro.html    "New here? Start with this" — the intro video
+  resume.html   the whole wizard: resume, job links, cover letter, interview
+  leaders.html  minister / leader training, two videos
+  help.html     help pages, switched by ?t=handoff|interview|resume|cover|links
+  nav.js        the Menu panel, shared by every page
+  video/        videos and poster images

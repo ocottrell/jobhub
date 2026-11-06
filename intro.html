@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How this works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A2332; --ink-soft:#4A5768; --paper:#FBFAF7; --card:#FFFFFF;
+  --line:#D9D4C8; --amber:#E09200; --amber-soft:#FFF4DC; --steel:#5A6B7D;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2EFE8; --ink-soft:#B4BCC7; --paper:#141A22; --card:#1D2530;
+    --line:#333E4C; --amber:#FFB524; --amber-soft:#3A2E14; --steel:#8E9BA9;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.55}
+header{border-bottom:1px solid var(--line);background:var(--card)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+header .wrap{padding-top:16px;padding-bottom:16px;display:flex;align-items:center;gap:14px}
+.home{font:600 16px Barlow,sans-serif;color:var(--steel);text-decoration:none}
+.home:hover{color:var(--ink)}
+main{padding:30px 0 80px}
+h1{font-size:33px;line-height:1.15;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+.sub{color:var(--ink-soft);font-size:18px;margin:0 0 26px}
+video{width:100%;border-radius:8px;background:#000;display:block;border:1px solid var(--line)}
+.vidnote{color:var(--steel);font-size:15px;margin:9px 0 32px;font-weight:500}
+.placeholder{aspect-ratio:16/9;width:100%;border:2px dashed var(--line);border-radius:8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--steel);text-align:center;padding:20px}
+.placeholder b{font-size:19px;color:var(--ink)}
+.placeholder span{font-size:16px;max-width:34ch}
+h2{font-size:15px;font-weight:700;color:var(--steel);letter-spacing:.06em;text-transform:uppercase;
+  margin:36px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.card{display:block;background:var(--card);border:2px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin-bottom:13px;text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--steel)}
+.card:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.card.primary{border-color:var(--amber);background:var(--amber-soft)}
+.card b{display:block;font-size:20px;font-weight:700;line-height:1.25;margin-bottom:4px}
+.card span{display:block;color:var(--ink-soft);font-size:16px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 0 44px;
+  color:var(--steel);font-size:16px}
+@media (min-width:760px){ body{font-size:19px} h1{font-size:40px} }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="home" href="index.html">&larr; Home</a>
+</div></header>
+
+<main><div class="wrap">
+
+  <h1>How this works</h1>
+  <p class="sub">A short look at what you can do here, and what you&rsquo;ll walk away with.</p>
+
+  <div id="vidslot">
+    <div class="placeholder">
+      <b>Video coming soon</b>
+      <span>The 90-second overview is being recorded. Everything below works right now.</span>
+    </div>
+  </div>
+  <p class="vidnote">About 1 minute 30 seconds.</p>
+
+  <h2>Or just get started</h2>
+
+  <a class="card primary" href="resume.html">
+    <b>Build my resume</b>
+    <span>Answer some simple questions and end up with a real resume. No writing required.</span>
+  </a>
+
+  <a class="card" href="resume.html?go=links">
+    <b>Find a job to apply for</b>
+    <span>Places worth looking, and how to spot a listing that is not real.</span>
+  </a>
+
+  <footer>Job Support Hub &middot; Free to use</footer>
+
+</div></main>
+<script>
+/* Intro video. Drop the file in as video/intro.mp4 and it replaces the
+   "coming soon" placeholder on its own. Until then the placeholder stays. */
+(function () {
+  var SRC  = 'video/intro.mp4';
+  var slot = document.getElementById('vidslot');
+  if (!slot) return;
+  var ph = slot.querySelector('.placeholder');
+
+  var v = document.createElement('video');
+  v.controls = true; v.preload = 'metadata'; v.playsInline = true;
+  v.src = SRC;
+  v.style.display = 'none';
+  slot.appendChild(v);
+
+  v.addEventListener('loadedmetadata', function () {
+    v.style.display = ''; if (ph) ph.remove();
+  });
+  v.addEventListener('error', function () { v.remove(); });
+})();
+</script>
+<script>window.JH_PAGE='intro';</script>
+<script src="nav.js"></script>
+</body>
+</html>

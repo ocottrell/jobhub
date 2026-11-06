@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A2332; --ink-soft:#4A5768; --paper:#FBFAF7; --card:#FFFFFF;
+  --line:#D9D4C8; --amber:#E09200; --amber-soft:#FFF4DC; --steel:#5A6B7D;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2EFE8; --ink-soft:#B4BCC7; --paper:#141A22; --card:#1D2530;
+    --line:#333E4C; --amber:#FFB524; --amber-soft:#3A2E14; --steel:#8E9BA9;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.55}
+.wrap{max-width:640px;margin:0 auto;padding:60px 20px 80px}
+.kicker{font-size:14px;font-weight:700;color:var(--amber);letter-spacing:.08em;
+  text-transform:uppercase;margin:0 0 10px}
+h1{font-size:36px;line-height:1.1;font-weight:700;margin:0 0 14px;letter-spacing:-.015em}
+p{color:var(--ink-soft);font-size:18px;margin:0 0 28px;max-width:42ch}
+.card{display:block;background:var(--card);border:2px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin-bottom:13px;text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--steel)}
+.card:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.card.primary{border-color:var(--amber);background:var(--amber-soft)}
+.card b{display:block;font-size:20px;font-weight:700;line-height:1.25;margin-bottom:4px}
+.card span{display:block;color:var(--ink-soft);font-size:16px}
+@media (min-width:760px){ body{font-size:19px} h1{font-size:44px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Job Support Hub</p>
+  <h1>That page isn't here.</h1>
+  <p>The link may be old, or there may be a typo in it. Nothing you saved is lost &mdash;
+     it is still on your phone.</p>
+
+  <a class="card primary" href="/"><b>Go to the home page</b>
+    <span>Start from the beginning</span></a>
+  <a class="card" href="/resume.html"><b>My resume</b>
+    <span>Pick up where you left off</span></a>
+</div>
+<script>window.JH_PAGE='';</script>
+<script src="/nav.js"></script>
+</body>
+</html>

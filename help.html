@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Help</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A2332; --ink-soft:#4A5768; --paper:#FBFAF7; --card:#FFFFFF;
+  --line:#D9D4C8; --amber:#E09200; --amber-soft:#FFF4DC; --steel:#5A6B7D;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F2EFE8; --ink-soft:#B4BCC7; --paper:#141A22; --card:#1D2530;
+    --line:#333E4C; --amber:#FFB524; --amber-soft:#3A2E14; --steel:#8E9BA9;
+  }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.55}
+header{border-bottom:1px solid var(--line);background:var(--card)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+header .wrap{padding-top:16px;padding-bottom:16px;display:flex;align-items:center;gap:14px}
+.home,.back{font:600 16px Barlow,sans-serif;color:var(--steel);text-decoration:none;
+  background:none;border:0;padding:0;cursor:pointer}
+.home:hover,.back:hover{color:var(--ink)}
+main{padding:30px 0 80px}
+h1{font-size:32px;line-height:1.15;font-weight:700;margin:0 0 8px;letter-spacing:-.01em}
+.sub{color:var(--ink-soft);font-size:18px;margin:0 0 26px}
+video{width:100%;border-radius:8px;background:#000;display:block;border:1px solid var(--line)}
+.vidnote{color:var(--steel);font-size:15px;margin:9px 0 30px;font-weight:500}
+.placeholder{aspect-ratio:16/9;width:100%;border:2px dashed var(--line);border-radius:8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  color:var(--steel);text-align:center;padding:20px;margin-bottom:30px}
+.placeholder b{font-size:19px;color:var(--ink)}
+.placeholder span{font-size:16px;max-width:34ch}
+h2{font-size:15px;font-weight:700;color:var(--steel);letter-spacing:.06em;text-transform:uppercase;
+  margin:34px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+ul{margin:0;padding-left:22px}
+li{margin-bottom:11px}
+.card{display:block;background:var(--card);border:2px solid var(--amber);
+  background:var(--amber-soft);border-radius:8px;padding:18px 20px;margin-top:26px;
+  text-decoration:none;color:var(--ink)}
+.card:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.card b{display:block;font-size:19px;font-weight:700}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 0 44px;
+  color:var(--steel);font-size:16px}
+@media (min-width:760px){ body{font-size:19px} h1{font-size:38px} }
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="home" href="index.html">&larr; Home</a>
+  <button class="back" type="button" onclick="history.back()" style="margin-left:auto">Go back</button>
+</div></header>
+
+<main><div class="wrap" id="page"></div></main>
+
+<script>
+// One entry per help video. Add `video:'<url>'` when the file exists and the
+// player replaces the placeholder automatically.
+var TOPICS = {
+  interview: {
+    title: 'Getting ready for an interview',
+    sub:   'What this page does, and how to practise your answers.',
+    video: '',
+    points: [
+      'Copy your information, then open Claude, ChatGPT or Gemini and paste it in.',
+      'You get the questions you are most likely to be asked for that job, plus the ones almost every interview includes.',
+      'You also get questions to ask them &mdash; most people freeze when the interviewer asks if you have any.',
+      'Then it asks you one question at a time so you can practise, and tells you honestly how your answer sounded.',
+      'Say your answers out loud. Reading them in your head is not the same thing.'
+    ],
+    backLabel: 'Back to interview prep',
+    backHref:  'resume.html?go=interview'
+  },
+  handoff: {
+    title: 'Copying your information into an AI helper',
+    sub:   'This step looks strange the first time. It is simpler than it looks.',
+    video: '',
+    points: [
+      'Press <b>Copy my information</b>. That puts everything you typed onto your clipboard &mdash; nothing is sent anywhere yet.',
+      'Press one of the three buttons to open a free AI helper. Claude, ChatGPT and Gemini all work; pick any one.',
+      'In the box where it says to type a message, press and hold, then choose <b>Paste</b>. Send it.',
+      'It writes your resume. If it needs to know something, it will ask you &mdash; answer in your own words.',
+      'Not happy with it? Tell it what to change, the way you would tell a person. You can go back and forth as much as you like.',
+      'When it looks right, come back here and paste the finished resume in so it is saved.'
+    ],
+    backLabel: 'Back to my information',
+    backHref:  'resume.html'
+  },
+  resume: {
+    title: 'Building your resume',
+    sub:   'How the questions work, and what you end up with.',
+    video: '',
+    points: [
+      'You answer simple questions about the work you have done. No writing required.',
+      'Answer the way you would say it out loud &mdash; it gets cleaned up at the end.',
+      'Nothing is required. Skip anything you want and come back to it.',
+      'Everything saves on your phone as you go, so you can stop and pick it up later.'
+    ],
+    backLabel: 'Back to building my resume',
+    backHref:  'resume.html'
+  },
+  cover: {
+    title: 'Writing a cover letter',
+    sub:   'How to match a letter to one specific job.',
+    video: '',
+    points: [
+      'Paste the whole job posting &mdash; duties, requirements, all of it.',
+      'If you know anyone who works there, say so. A name in the first line does more than anything else on the page.',
+      'You get a letter written for that exact job, plus an honest read on how well you match it.'
+    ],
+    backLabel: 'Back to the cover letter',
+    backHref:  'resume.html?go=cover'
+  },
+  links: {
+    title: 'Finding a job to apply for',
+    sub:   'Where to look, and how to spot a listing that is not real.',
+    video: '',
+    points: [
+      'Start with the first few places listed. They carry most of the local jobs.',
+      'Never pay money to get a job. A real employer will not ask you for a fee.',
+      'No bank details before you are hired, and never buy your own equipment up front.',
+      'If a listing asks you to cash a check and send part of it back, it is a scam. Walk away.'
+    ],
+    backLabel: 'Back to the job search',
+    backHref:  'resume.html?go=links'
+  }
+};
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+var key = (location.search.match(/[?&]t=([a-z-]+)/) || [])[1] || 'resume';
+var T = TOPICS[key] || TOPICS.resume;
+
+document.title = T.title;
+document.getElementById('page').innerHTML =
+  '<h1>' + esc(T.title) + '</h1>' +
+  '<p class="sub">' + esc(T.sub) + '</p>' +
+  (T.video
+    ? '<video controls preload="metadata" playsinline src="' + esc(T.video) + '"></video>' +
+      '<p class="vidnote">A short walk-through.</p>'
+    : '<div class="placeholder"><b>Video coming soon</b>' +
+      '<span>It is being recorded. Everything below covers the same ground.</span></div>') +
+  '<h2>The short version</h2>' +
+  '<ul>' + T.points.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+  '<a class="card" href="' + esc(T.backHref) + '"><b>' + esc(T.backLabel) + '</b></a>' +
+  '<footer>Job Support Hub &middot; Free to use</footer>';
+</script>
+<script>window.JH_PAGE='help';</script>
+<script src="nav.js"></script>
+</body>
+</html>
